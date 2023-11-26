@@ -11,6 +11,14 @@
     {
       "name": "EntryAbility_label",
       "value": "label"
+    },
+    {
+      "name": "LoginPage_label",
+      "value": "登录界面"
+    },
+    {
+      "name": "LoginPage_desc",
+      "value": "登录账号以获得更多服务"
     }
   ]
 }
