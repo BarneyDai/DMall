@@ -1,5 +1,5 @@
 
-import LoginHeader, { LoginBody } from './components/LoginPageComponents'
+import LoginHeader, { LoginBody, LoginFooter } from './components/LoginPageComponents'
 @Entry
 @Component
 struct LoginPage {
@@ -9,6 +9,7 @@ struct LoginPage {
     Column() {
       LoginHeader()
       LoginBody()
+      LoginFooter()
     }
   }
 }

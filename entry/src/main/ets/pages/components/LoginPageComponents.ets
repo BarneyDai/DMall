@@ -1,6 +1,6 @@
 @Component
-export default struct LoginHeader{
-  build(){
+export default struct LoginHeader {
+  build() {
     Column() {
       Image($r('app.media.icon'))
         .width(80)
@@ -21,18 +21,18 @@ export default struct LoginHeader{
 }
 
 @Component
-export struct LoginBody{
-  build(){
+export struct LoginBody {
+  build() {
     Column() {
       TextInput({ placeholder: 'username' })
         .margin({ right: 30, left: 30 })
-        .padding({ left:0 })
+        .padding({ left: 0 })
         .border({ radius: 0, color: "#15000000", width: { top: 0, bottom: 1, left: 0, right: 0 } })
         .backgroundColor("#00000000")
         .type(InputType.Normal)
       TextInput({ placeholder: 'password' })
         .margin({ top: 10, right: 30, left: 30 })
-        .padding({ left:0 })
+        .padding({ left: 0 })
         .backgroundColor("#00000000")
         .border({ radius: 0, color: "#15000000", width: { top: 0, bottom: 1, left: 0, right: 0 } })
         .type(InputType.Password)
@@ -43,7 +43,6 @@ export struct LoginBody{
           .fontSize(14)
           .id("Text1")
           .alignRules({
-            top: { anchor: "__container__", align: VerticalAlign.Top },
             left: { anchor: "__container__", align: HorizontalAlign.Start }
           })
           .margin({ left: 30 })
@@ -54,7 +53,6 @@ export struct LoginBody{
           .fontSize(14)
           .id("Text2")
           .alignRules({
-            top: { anchor: "__container__", align: VerticalAlign.Top },
             right: { anchor: "__container__", align: HorizontalAlign.End }
           })
           .margin({ right: 30 })
@@ -62,8 +60,55 @@ export struct LoginBody{
       }
       .width("100%")
       .height(35)
-      .margin({right: 30, left: 30 })
+
+      Button("登录").width(350).height(40).margin({ top: 100 })
+
+      Text("注册账号")
+        .fontColor("#35a3ff")
+        .fontWeight(FontWeight.Bold)
+        .margin({ top: 15 })
+        .fontSize(16)
+
+      LoadingProgress().width(70).height(70).margin(15)
     }
     .margin({ top: 30 })
+  }
+}
+
+@Component
+export struct LoginFooter {
+  build() {
+    Column() {
+      Text("其他方式登陆").fontColor("#66000000").fontSize(14)
+      Row() {
+        Button("方式1")
+          .type(ButtonType.Circle)
+          .margin({ right: 20, left: 40 })
+          .size({ width: 50, height: 50 })
+          .backgroundColor("#fff")
+          .fontSize(14)
+          .fontColor("#5000")
+          .border({ width: 1, color: "#5000" })
+          .padding(0)
+        Button("方式2")
+          .type(ButtonType.Circle)
+          .margin({ right: 20, left: 20 })
+          .size({ width: 50, height: 50 })
+          .backgroundColor("#fff")
+          .fontSize(14)
+          .fontColor("#5000")
+          .border({ width: 1, color: "#5000" })
+          .padding(0)
+        Button("方式3")
+          .type(ButtonType.Circle)
+          .margin({ right: 40, left: 20 })
+          .size({ width: 50, height: 50 })
+          .backgroundColor("#fff")
+          .fontSize(14)
+          .fontColor("#5000")
+          .border({ width: 1, color: "#5000" })
+          .padding(0)
+      }.margin({ top: 10 })
+    }
   }
 }
