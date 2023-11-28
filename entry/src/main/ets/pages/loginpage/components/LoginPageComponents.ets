@@ -1,3 +1,7 @@
+import Prompt from '@system.prompt'
+import User from '../models/User'
+import LoginViewModel from '../viewmodels/LoginViewModel'
+
 @Component
 export default struct LoginHeader {
   build() {
@@ -22,6 +26,9 @@ export default struct LoginHeader {
 
 @Component
 export struct LoginBody {
+  loginViewModel: LoginViewModel;
+  user: User;
+
   build() {
     Column() {
       TextInput({ placeholder: 'username' })
@@ -30,12 +37,18 @@ export struct LoginBody {
         .border({ radius: 0, color: "#15000000", width: { top: 0, bottom: 1, left: 0, right: 0 } })
         .backgroundColor("#00000000")
         .type(InputType.Normal)
+        .onChange((value: string) => {
+          this.user.setUserName(value)
+        })
       TextInput({ placeholder: 'password' })
         .margin({ top: 10, right: 30, left: 30 })
         .padding({ left: 0 })
         .backgroundColor("#00000000")
         .border({ radius: 0, color: "#15000000", width: { top: 0, bottom: 1, left: 0, right: 0 } })
         .type(InputType.Password)
+        .onChange((value: string) => {
+          this.user.setPassWord(value)
+        })
       RelativeContainer() {
         Text("短信验证码登录")
           .fontColor("#35a3ff")
@@ -62,6 +75,11 @@ export struct LoginBody {
       .height(35)
 
       Button("登录").width(350).height(40).margin({ top: 100 })
+        .onClick(() => {
+          if (this.loginViewModel.verifyAccount(this.user)) {
+            Prompt.showToast({ message: "aaaa", duration: 2000 })
+          }
+        })
 
       Text("注册账号")
         .fontColor("#35a3ff")
@@ -75,39 +93,28 @@ export struct LoginBody {
   }
 }
 
+
 @Component
 export struct LoginFooter {
+  @Builder getLoginButton(text: string, marginRight: number, marginLeft: number) {
+    Button(text)
+      .type(ButtonType.Circle)
+      .margin({ right: marginRight, left: marginLeft })
+      .size({ width: 50, height: 50 })
+      .backgroundColor("#fff")
+      .fontSize(14)
+      .fontColor("#5000")
+      .border({ width: 1, color: "#5000" })
+      .padding(0)
+  }
+
   build() {
     Column() {
       Text("其他方式登陆").fontColor("#66000000").fontSize(14)
       Row() {
-        Button("方式1")
-          .type(ButtonType.Circle)
-          .margin({ right: 20, left: 40 })
-          .size({ width: 50, height: 50 })
-          .backgroundColor("#fff")
-          .fontSize(14)
-          .fontColor("#5000")
-          .border({ width: 1, color: "#5000" })
-          .padding(0)
-        Button("方式2")
-          .type(ButtonType.Circle)
-          .margin({ right: 20, left: 20 })
-          .size({ width: 50, height: 50 })
-          .backgroundColor("#fff")
-          .fontSize(14)
-          .fontColor("#5000")
-          .border({ width: 1, color: "#5000" })
-          .padding(0)
-        Button("方式3")
-          .type(ButtonType.Circle)
-          .margin({ right: 40, left: 20 })
-          .size({ width: 50, height: 50 })
-          .backgroundColor("#fff")
-          .fontSize(14)
-          .fontColor("#5000")
-          .border({ width: 1, color: "#5000" })
-          .padding(0)
+        this.getLoginButton("方式1", 20, 40)
+        this.getLoginButton("方式2", 20, 20)
+        this.getLoginButton("方式3", 40, 20)
       }.margin({ top: 10 })
     }
   }
