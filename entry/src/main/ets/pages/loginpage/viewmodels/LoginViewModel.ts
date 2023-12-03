@@ -1,7 +1,7 @@
 import User from '../models/User';
 
 export default class LoginViewModel {
-  verifyAccount(user: User): boolean {
+  async verifyAccount(user: User): Promise<boolean> {
     if (user.getUserName() == 'aaaa' && user.getPassWord() == 'bbbb') {
       return true;
     } else {

@@ -7,13 +7,14 @@ import LoginViewModel from './viewmodels/LoginViewModel';
 export default struct LoginPage {
   @State message: string = 'Hello World'
   loginViewModel: LoginViewModel = new LoginViewModel();
-  user: User = new User('', '')
+  @State user: User = new User('1', '')
 
   build() {
     Column() {
       LoginHeader()
-      LoginBody({ loginViewModel: this.loginViewModel, user: this.user })
+      LoginBody({ loginViewModel: this.loginViewModel, user: $user })
       LoginFooter()
+      Text(this.user.getUserName())
     }
   }
 }

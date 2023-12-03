@@ -1,6 +1,7 @@
 import Prompt from '@system.prompt'
 import User from '../models/User'
 import LoginViewModel from '../viewmodels/LoginViewModel'
+import router from '@ohos.router'
 
 @Component
 export default struct LoginHeader {
@@ -27,7 +28,7 @@ export default struct LoginHeader {
 @Component
 export struct LoginBody {
   loginViewModel: LoginViewModel;
-  user: User;
+  @Link user: User;
 
   build() {
     Column() {
@@ -76,9 +77,14 @@ export struct LoginBody {
 
       Button("登录").width(350).height(40).margin({ top: 100 })
         .onClick(() => {
-          if (this.loginViewModel.verifyAccount(this.user)) {
-            Prompt.showToast({ message: "aaaa", duration: 2000 })
-          }
+          this.loginViewModel.verifyAccount(this.user).then((value: boolean) => {
+            // router.pushUrl({ url: 'pages/mainpage/MainPage' })
+            if (value) {
+              router.pushUrl({ url: 'pages/mainpage/MainPage' })
+            } else {
+              Prompt.showToast({ message: 'login fail!', duration: 1000 })
+            }
+          })
         })
 
       Text("注册账号")
@@ -96,7 +102,7 @@ export struct LoginBody {
 
 @Component
 export struct LoginFooter {
-  @Builder getLoginButton(text: string, marginRight: number, marginLeft: number) {
+  @Builder getOtherLoginButton(text: string, marginRight: number, marginLeft: number) {
     Button(text)
       .type(ButtonType.Circle)
       .margin({ right: marginRight, left: marginLeft })
@@ -112,9 +118,9 @@ export struct LoginFooter {
     Column() {
       Text("其他方式登陆").fontColor("#66000000").fontSize(14)
       Row() {
-        this.getLoginButton("方式1", 20, 40)
-        this.getLoginButton("方式2", 20, 20)
-        this.getLoginButton("方式3", 40, 20)
+        this.getOtherLoginButton("方式1", 20, 40)
+        this.getOtherLoginButton("方式2", 20, 20)
+        this.getOtherLoginButton("方式3", 40, 20)
       }.margin({ top: 10 })
     }
   }
